@@ -15,9 +15,15 @@ text{
   color: rgb(255, 255, 255);
   font-size: 18px;
   text-align: center;
-  margin: -20px;
+  margin: -15px;
   font-weight: bold;
   padding-top: 10px;
+}
+
+p{
+  color: rgb(255, 255, 255);
+  font-size: 15px;
+  margin: -15px;
 }
 
 select{
@@ -31,59 +37,51 @@ select{
   outline: none;
 }
 
+.cabeçalho{
+  display: flex;
+}
+
 .quantidade{
-  position: absolute;
-  margin: 0px;
+  margin: -15px;
   padding-left: 0px;
   margin-top: -20px;
+  font-size: 20px;
 }
 
 .produto{
-  position: absolute;
   margin: 0px;
-  padding-left: 80px;
+  padding-left: 42px;
   margin-top: -20px;
+  font-size: 20px;
 }
 
 .valor{
-  position: absolute;
   margin: 0px;
-  padding-left: 295px;
+  padding-left: 170px;
   margin-top: -20px;
+  font-size: 20px;
 }
 
 .lista-de-produtos{
   display: flex;
-  flex-direction: column;
-
-  & p {
-    margin: 47px;
-    color: rgb(255, 255, 255);
-    font-size: 18px;
-    padding-top: 10px;
-  }
 }
 
 .quantidade-lista{
-  margin-left: -45px;
-  height: 0;
+  margin-left: -14px;
+  padding-top: 10px;
 }
 
 .produto-lista{
-  margin-left: 33px;
-  position: absolute;
-  height: 0;
+  width: 300px;
+  margin-left: 53px;
+  padding-top: 10px;
 }
 
 .valor-lista{
-  padding-left: 235px;
-  position: absolute;
-  height: 0;
+  padding-top: 10px;
+  margin-right: -8px;
 }
 
-.form-lista-de-produtos{
-  height: 62.5vh;
-}
 
 form{
   display: flex;
@@ -94,6 +92,7 @@ form{
   background-color: #2E2D4E;
   max-width: 50%;
   width: 400px;
+  min-height: 500px;
   margin-bottom: 20px;
   margin: 20px;
 
@@ -151,6 +150,22 @@ form{
   & button:hover{
     opacity: 0.5;
   }
+}
+
+.venda > h1{
+  font-size: 25px;
+  margin: -15px;
+}
+
+.valorPago{
+  font-size: 55px;
+  margin-bottom: 0px;
+  color: #78df6e;
+}
+
+.troco{
+  font-size: 40px;
+  color: #dd606f;
 }
 
 .button-confirmar{
