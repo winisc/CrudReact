@@ -20,6 +20,7 @@ model User {
   valor       Float[]
   tipo        String[]
   valorTotal  Float
+  tipoDePagamento String
   valorPago   Float
   troco       String
 }

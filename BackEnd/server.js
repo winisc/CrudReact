@@ -1,10 +1,12 @@
 import express from 'express'
 import { PrismaClient } from '@prisma/client'
+import cors from 'cors'
 
 const prisma = new PrismaClient()
 
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 
 app.post('/vendas', async (req, res) => {
@@ -16,6 +18,7 @@ app.post('/vendas', async (req, res) => {
             valor: req.body.valor,
             tipo:      req.body.tipo,
             valorTotal: req.body.valorTotal,
+            tipoDePagamento: req.body.tipoDePagamento,
             valorPago: req.body.valorPago,
             troco:  req.body.troco
         }
@@ -36,6 +39,7 @@ app.get('/vendas', async (req, res) => {
                 valor: req.query.valor,
                 tipo:      req.query.tipo,
                 valorTotal: req.query.valorTotal,
+                tipoDePagamento: req.query.tipoDePagamento,
                 valorPago: req.query.valorPago,
                 troco:  req.query.troco
             }
@@ -60,6 +64,7 @@ app.put('/vendas/:id', async (req, res) => {
             valor: req.body.valor,
             tipo:      req.body.tipo,
             valorTotal: req.body.valorTotal,
+            tipoDePagamento: req.body.tipoDePagamento,
             valorPago: req.body.valorPago,
             troco:  req.body.troco
         }
