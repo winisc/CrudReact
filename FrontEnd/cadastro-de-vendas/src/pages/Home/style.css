@@ -182,6 +182,10 @@ form{
   }
 }
 
+.button-trash-vendas{
+  cursor: pointer;
+}
+
 .get{
   display: flex;
   flex-direction: column;

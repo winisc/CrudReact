@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import "./style.css";
 import Trash from "../../assets/trash.svg";
-import api from '../../services/api'
+import api from "../../services/api";
 
 function App() {
   const inputProduto = useRef();
@@ -15,7 +15,7 @@ function App() {
 
   let valorTotal = 0;
 
-  const [vendas, setVendas] = useState([])
+  const [vendas, setVendas] = useState([]);
 
   let venda = {
     produto: [undefined], //OK
@@ -25,16 +25,16 @@ function App() {
     valorTotal: undefined, //Float or Int
     tipoDePagamento: undefined, //String
     valorPago: undefined, //String > Float
-    troco: undefined //Ok
+    troco: undefined, //Ok
+  };
+
+  async function getVendas() {
+    const vendasFromApi = await api.get("/vendas");
+    setVendas(vendasFromApi.data);
   }
 
-  async function getVendas(){
-     const vendasFromApi = await api.get('/vendas')
-     setVendas(vendasFromApi.data)
-  }
-
-  async function createVendas(){
-    await api.post('/vendas', {
+  async function createVendas() {
+    await api.post("/vendas", {
       produto: venda.produto,
       quantidade: venda.quantidade,
       valor: venda.valor,
@@ -42,17 +42,23 @@ function App() {
       valorTotal: venda.valorTotal,
       tipoDePagamento: venda.tipoDePagamento,
       valorPago: venda.valorPago,
-      troco: venda.troco
-    })
+      troco: venda.troco,
+    });
 
- }
+    window.location.reload(true);
+  }
+
+  async function deleteVendas(id) {
+    await api.delete(`/vendas/${id}`);
+
+    getVendas()
+  }
 
   useEffect(() => {
-    getVendas()
-  }, [])
+    getVendas();
+  }, []);
 
   function createProdutoTemp() {
-
     const produto = {
       name: inputProduto.current.value,
       quantidade: inputQuantidade.current.value,
@@ -63,7 +69,7 @@ function App() {
     for (let i = 0; i < 10; i++) {
       if (listaDeProdutos[i] === undefined) {
         listaDeProdutos[i] = produto;
-          if (listaDeProdutos[i].servico != "") {
+        if (listaDeProdutos[i].servico != "") {
           valorTotal += parseInt(listaDeProdutos[i].valor);
           if (i === 0) {
             document.getElementById("quantidade-lista0").innerText =
@@ -108,26 +114,26 @@ function App() {
             document.getElementById("valor-lista5").innerText =
               listaDeProdutos[5].valor;
           } else if (i === 6) {
-          document.getElementById("quantidade-lista6").innerText =
-            listaDeProdutos[6].quantidade;
-          document.getElementById("produto-lista6").innerText =
-            listaDeProdutos[6].name;
-          document.getElementById("valor-lista6").innerText =
-            listaDeProdutos[6].valor;
+            document.getElementById("quantidade-lista6").innerText =
+              listaDeProdutos[6].quantidade;
+            document.getElementById("produto-lista6").innerText =
+              listaDeProdutos[6].name;
+            document.getElementById("valor-lista6").innerText =
+              listaDeProdutos[6].valor;
           } else if (i === 7) {
-          document.getElementById("quantidade-lista7").innerText =
-            listaDeProdutos[7].quantidade;
-          document.getElementById("produto-lista7").innerText =
-            listaDeProdutos[7].name;
-          document.getElementById("valor-lista7").innerText =
-            listaDeProdutos[7].valor;
+            document.getElementById("quantidade-lista7").innerText =
+              listaDeProdutos[7].quantidade;
+            document.getElementById("produto-lista7").innerText =
+              listaDeProdutos[7].name;
+            document.getElementById("valor-lista7").innerText =
+              listaDeProdutos[7].valor;
           } else if (i === 8) {
-          document.getElementById("quantidade-lista8").innerText =
-            listaDeProdutos[8].quantidade;
-          document.getElementById("produto-lista8").innerText =
-            listaDeProdutos[8].name;
-          document.getElementById("valor-lista8").innerText =
-            listaDeProdutos[8].valor;
+            document.getElementById("quantidade-lista8").innerText =
+              listaDeProdutos[8].quantidade;
+            document.getElementById("produto-lista8").innerText =
+              listaDeProdutos[8].name;
+            document.getElementById("valor-lista8").innerText =
+              listaDeProdutos[8].valor;
           } else if (i === 9) {
             document.getElementById("quantidade-lista9").innerText =
               listaDeProdutos[9].quantidade;
@@ -137,27 +143,34 @@ function App() {
               listaDeProdutos[9].valor;
           }
 
-         
           document.getElementById("valorTotal").innerText = valorTotal;
           createTroco();
+          limparCampos()
           return;
         }
 
-        console.log("Tipo de Serviço inválido")
+        console.log("Tipo de Serviço inválido");
         listaDeProdutos[i] = undefined;
-        return
+        return;
       }
     }
+  }
+
+  function limparCampos()
+  {
+    document.getElementById('name').value="";
+    document.getElementById('qt').value="";
+    document.getElementById('valor').value="";
+    document.getElementById('tipo-de-servico').value="";
   }
 
   function createTroco() {
     let troco;
     troco = inputValorPago.current.value - valorTotal;
     if (inputFormaDePagamento.current.value === "dinheiro") {
-      if(troco >= 0){
+      if (troco >= 0) {
         document.getElementById("troco").innerText = troco;
-      }
-      else{
+      } else {
         document.getElementById("troco").innerText = 0;
       }
     } else {
@@ -197,6 +210,22 @@ function App() {
           document.getElementById("quantidade-lista5").innerText = "";
           document.getElementById("produto-lista5").innerText = "";
           document.getElementById("valor-lista5").innerText = "";
+        } else if (id === 6) {
+          document.getElementById("quantidade-lista6").innerText = "";
+          document.getElementById("produto-lista6").innerText = "";
+          document.getElementById("valor-lista6").innerText = "";
+        } else if (id === 7) {
+          document.getElementById("quantidade-lista7").innerText = "";
+          document.getElementById("produto-lista7").innerText = "";
+          document.getElementById("valor-lista7").innerText = "";
+        } else if (id === 8) {
+          document.getElementById("quantidade-lista8").innerText = "";
+          document.getElementById("produto-lista8").innerText = "";
+          document.getElementById("valor-lista8").innerText = "";
+        } else if (id === 9) {
+          document.getElementById("quantidade-lista9").innerText = "";
+          document.getElementById("produto-lista9").innerText = "";
+          document.getElementById("valor-lista9").innerText = "";
         }
       }
 
@@ -209,38 +238,38 @@ function App() {
   function confirmarVenda() {
     for (let i = 0; i < 10; i++) {
       if (listaDeProdutos[i] != undefined) {
-        venda.produto[i] = listaDeProdutos[i].name
-        venda.quantidade[i] = parseInt(listaDeProdutos[i].quantidade)
-        venda.valor[i] = parseFloat(listaDeProdutos[i].valor)
-        venda.tipo[i] = listaDeProdutos[i].servico
+        venda.produto[i] = listaDeProdutos[i].name;
+        venda.quantidade[i] = parseInt(listaDeProdutos[i].quantidade);
+        venda.valor[i] = parseFloat(listaDeProdutos[i].valor);
+        venda.tipo[i] = listaDeProdutos[i].servico;
       }
     }
 
-    venda.valorTotal = parseFloat(valorTotal)
-    venda.tipoDePagamento = inputFormaDePagamento.current.value
-    venda.valorPago = parseFloat(inputValorPago.current.value)
+    venda.valorTotal = parseFloat(valorTotal);
+    venda.tipoDePagamento = inputFormaDePagamento.current.value;
+    venda.valorPago = parseFloat(inputValorPago.current.value);
 
     if (inputFormaDePagamento.current.value === "dinheiro") {
-      if((inputValorPago.current.value - valorTotal) >= 0)
-      {
-        venda.troco = (inputValorPago.current.value - valorTotal).toString()
-      }
-      else{
-        venda.troco = "0"
+      if (inputValorPago.current.value - valorTotal >= 0) {
+        venda.troco = (inputValorPago.current.value - valorTotal).toString();
+      } else {
+        venda.troco = "0";
       }
     } else {
-      venda.troco = ("Sem troco")
+      venda.troco = "Sem troco";
     }
 
-    if(venda.tipoDePagamento === "" || venda.valorPago < venda.valorTotal || venda.valorTotal <= 0)
-    {
-      console.log("Invalido")
-      return
+    if (
+      venda.tipoDePagamento === "" ||
+      venda.valorPago < venda.valorTotal ||
+      venda.valorTotal <= 0
+    ) {
+      console.log("Invalido");
+      return;
     }
 
-    createVendas()
-    // window.location.reload(true)
-    return
+    createVendas();
+    return;
   }
 
   return (
@@ -248,11 +277,11 @@ function App() {
       <div className="container">
         <form>
           <text>Produto:</text>
-          <input name="name" type="text" ref={inputProduto} />
+          <input name="name" id="name" type="text" ref={inputProduto} />
           <text>Quantidade:</text>
-          <input name="qt" type="number" ref={inputQuantidade} />
+          <input name="qt" id="qt" type="number" ref={inputQuantidade} />
           <text>Valor:</text>
-          <input name="valor" type="number" ref={inputValor} />
+          <input name="valor" id="valor" type="number" ref={inputValor} />
           <text>Tipo de Produto:</text>
           <select
             class="value-tipo"
@@ -262,9 +291,9 @@ function App() {
             ref={inputServico}
           >
             <option value="">Escolha o tipo de Produto</option>
-            <option value="servicos">Serviços</option>
-            <option value="pecas">Peças</option>
-            <option value="outros">Outros</option>
+            <option value="Serviço">Serviços</option>
+            <option value="Peça">Peças</option>
+            <option value="Outros">Outros</option>
           </select>
           <button type="button" onClick={createProdutoTemp}>
             Adicionar Produto
@@ -407,7 +436,6 @@ function App() {
               <img src={Trash} />
             </button>
           </div>
-
         </form>
 
         <form className="venda">
@@ -446,26 +474,36 @@ function App() {
             00,00
           </text>
 
-          <button className="button-confirmar" type="button" onClick={confirmarVenda}>
+          <button
+            className="button-confirmar"
+            type="button"
+            onClick={confirmarVenda}
+          >
             Confirmar Venda
           </button>
         </form>
       </div>
 
-    {vendas.map((vendas) => (
-      <div key={vendas.id} className="get" >
-        <p>Produtos: {vendas.produto}</p>
-        <p>Quantidades: {vendas.quantidade}</p>
-        <p>Valores: {vendas.valor}</p>
-        <p>Tipos: {vendas.tipo}</p>
-        <p>Valor Total: {vendas.valorTotal}</p>
-        <p>Tipo de Pagamento: {vendas.tipoDePagamento}</p>
-        <p>Valor de Pagamento: {vendas.valorPago}</p>
-        <p>Troco: {vendas.troco}</p>
-      </div>
-    ))}
+      {vendas.map((vendas) => (
+        <div key={vendas.id} className="get">
+          <p>Produtos: {vendas.produto}</p>
+          <p>Quantidades: {vendas.quantidade}</p>
+          <p>Valores: {vendas.valor}</p>
+          <p>Tipos: {vendas.tipo}</p>
+          <p>Valor Total: {vendas.valorTotal}</p>
+          <p>Tipo de Pagamento: {vendas.tipoDePagamento}</p>
+          <p>Valor de Pagamento: {vendas.valorPago}</p>
+          <p>Troco: {vendas.troco}</p>
 
-
+          <button
+              className="button-trash-vendas"
+              type="button"
+              onClick={() => deleteVendas(vendas.id)}
+            >
+              <img src={Trash} />
+            </button>
+        </div>
+      ))}
     </div>
   );
 }

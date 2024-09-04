@@ -35,9 +35,9 @@ app.get('/vendas', async (req, res) => {
         vendas = await prisma.user.findMany({
             where:{
                 produto: req.query.produto, 
-                quantidade:  req.query.quantidade,
+                quantidade: req.query.quantidade,
                 valor: req.query.valor,
-                tipo:      req.query.tipo,
+                tipo: req.query.tipo,
                 valorTotal: req.query.valorTotal,
                 tipoDePagamento: req.query.tipoDePagamento,
                 valorPago: req.query.valorPago,
@@ -60,9 +60,9 @@ app.put('/vendas/:id', async (req, res) => {
         },
         data: {
             produto: req.body.produto, 
-            quantidade:  req.body.quantidade,
+            quantidade: req.body.quantidade,
             valor: req.body.valor,
-            tipo:      req.body.tipo,
+            tipo: req.body.tipo,
             valorTotal: req.body.valorTotal,
             tipoDePagamento: req.body.tipoDePagamento,
             valorPago: req.body.valorPago,
