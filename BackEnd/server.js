@@ -19,8 +19,10 @@ app.post('/vendas', async (req, res) => {
             tipo:      req.body.tipo,
             valorTotal: req.body.valorTotal,
             tipoDePagamento: req.body.tipoDePagamento,
+            cliente: req.body.cliente,
             valorPago: req.body.valorPago,
-            troco:  req.body.troco
+            troco:  req.body.troco,
+            data: req.body.data
         }
     })
     
@@ -40,8 +42,10 @@ app.get('/vendas', async (req, res) => {
                 tipo: req.query.tipo,
                 valorTotal: req.query.valorTotal,
                 tipoDePagamento: req.query.tipoDePagamento,
+                cliente: req.query.cliente,
                 valorPago: req.query.valorPago,
-                troco:  req.query.troco
+                troco:  req.query.troco,
+                data: req.query.data
             }
         })
     }
@@ -65,8 +69,10 @@ app.put('/vendas/:id', async (req, res) => {
             tipo: req.body.tipo,
             valorTotal: req.body.valorTotal,
             tipoDePagamento: req.body.tipoDePagamento,
+            cliente: req.body.cliente,
             valorPago: req.body.valorPago,
-            troco:  req.body.troco
+            troco:  req.body.troco,
+            data: req.body.data
         }
     })
     

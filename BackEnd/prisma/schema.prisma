@@ -21,6 +21,8 @@ model User {
   tipo        String[]
   valorTotal  Float
   tipoDePagamento String
+  cliente     String
   valorPago   Float
   troco       String
+  data        String
 }
