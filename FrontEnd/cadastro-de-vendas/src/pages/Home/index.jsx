@@ -4,6 +4,19 @@ import Trash from "../../assets/trash.svg";
 import api from "../../services/api";
 
 function App() {
+  function formatarMoeda(amount) {
+    if (amount === "Sem troco") {
+      return amount;
+    }
+
+    if (amount != null) {
+      return new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(amount);
+    }
+  }
+
   const inputProduto = useRef();
   const inputQuantidade = useRef();
   const inputValor = useRef();
@@ -49,9 +62,15 @@ function App() {
   }
 
   async function deleteVendas(id) {
-    await api.delete(`/vendas/${id}`);
+    if (window.confirm("Deletar venda?")) {
+      await api.delete(`/vendas/${id}`);
 
-    getVendas()
+      getVendas();
+      return;
+    }
+
+    getVendas();
+    return;
   }
 
   useEffect(() => {
@@ -66,112 +85,123 @@ function App() {
       servico: inputServico.current.value,
     };
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 11; i++) {
       if (listaDeProdutos[i] === undefined) {
         listaDeProdutos[i] = produto;
-        if (listaDeProdutos[i].servico != "") {
-          valorTotal += parseInt(listaDeProdutos[i].valor);
+        if (listaDeProdutos[i].name != "" && listaDeProdutos[i].servico != "" && !isNaN(listaDeProdutos[i].valor) && !isNaN(listaDeProdutos[i].quantidade)) {
+          valorTotal += parseFloat(listaDeProdutos[i].valor);
           if (i === 0) {
             document.getElementById("quantidade-lista0").innerText =
               listaDeProdutos[0].quantidade;
             document.getElementById("produto-lista0").innerText =
               listaDeProdutos[0].name;
-            document.getElementById("valor-lista0").innerText =
-              listaDeProdutos[0].valor;
+            document.getElementById("valor-lista0").innerText = formatarMoeda(
+              listaDeProdutos[0].valor
+            );
           } else if (i === 1) {
             document.getElementById("quantidade-lista1").innerText =
               listaDeProdutos[1].quantidade;
             document.getElementById("produto-lista1").innerText =
               listaDeProdutos[1].name;
-            document.getElementById("valor-lista1").innerText =
-              listaDeProdutos[1].valor;
+            document.getElementById("valor-lista1").innerText = formatarMoeda(
+              listaDeProdutos[1].valor
+            );
           } else if (i === 2) {
             document.getElementById("quantidade-lista2").innerText =
               listaDeProdutos[2].quantidade;
             document.getElementById("produto-lista2").innerText =
               listaDeProdutos[2].name;
-            document.getElementById("valor-lista2").innerText =
-              listaDeProdutos[2].valor;
+            document.getElementById("valor-lista2").innerText = formatarMoeda(
+              listaDeProdutos[2].valor
+            );
           } else if (i === 3) {
             document.getElementById("quantidade-lista3").innerText =
               listaDeProdutos[3].quantidade;
             document.getElementById("produto-lista3").innerText =
               listaDeProdutos[3].name;
-            document.getElementById("valor-lista3").innerText =
-              listaDeProdutos[3].valor;
+            document.getElementById("valor-lista3").innerText = formatarMoeda(
+              listaDeProdutos[3].valor
+            );
           } else if (i === 4) {
             document.getElementById("quantidade-lista4").innerText =
               listaDeProdutos[4].quantidade;
             document.getElementById("produto-lista4").innerText =
               listaDeProdutos[4].name;
-            document.getElementById("valor-lista4").innerText =
-              listaDeProdutos[4].valor;
+            document.getElementById("valor-lista4").innerText = formatarMoeda(
+              listaDeProdutos[4].valor
+            );
           } else if (i === 5) {
             document.getElementById("quantidade-lista5").innerText =
               listaDeProdutos[5].quantidade;
             document.getElementById("produto-lista5").innerText =
               listaDeProdutos[5].name;
-            document.getElementById("valor-lista5").innerText =
-              listaDeProdutos[5].valor;
+            document.getElementById("valor-lista5").innerText = formatarMoeda(
+              listaDeProdutos[5].valor
+            );
           } else if (i === 6) {
             document.getElementById("quantidade-lista6").innerText =
               listaDeProdutos[6].quantidade;
             document.getElementById("produto-lista6").innerText =
               listaDeProdutos[6].name;
-            document.getElementById("valor-lista6").innerText =
-              listaDeProdutos[6].valor;
+            document.getElementById("valor-lista6").innerText = formatarMoeda(
+              listaDeProdutos[6].valor
+            );
           } else if (i === 7) {
             document.getElementById("quantidade-lista7").innerText =
               listaDeProdutos[7].quantidade;
             document.getElementById("produto-lista7").innerText =
               listaDeProdutos[7].name;
-            document.getElementById("valor-lista7").innerText =
-              listaDeProdutos[7].valor;
+            document.getElementById("valor-lista7").innerText = formatarMoeda(
+              listaDeProdutos[7].valor
+            );
           } else if (i === 8) {
             document.getElementById("quantidade-lista8").innerText =
               listaDeProdutos[8].quantidade;
             document.getElementById("produto-lista8").innerText =
               listaDeProdutos[8].name;
-            document.getElementById("valor-lista8").innerText =
-              listaDeProdutos[8].valor;
+            document.getElementById("valor-lista8").innerText = formatarMoeda(
+              listaDeProdutos[8].valor
+            );
           } else if (i === 9) {
             document.getElementById("quantidade-lista9").innerText =
               listaDeProdutos[9].quantidade;
             document.getElementById("produto-lista9").innerText =
               listaDeProdutos[9].name;
-            document.getElementById("valor-lista9").innerText =
-              listaDeProdutos[9].valor;
+            document.getElementById("valor-lista9").innerText = formatarMoeda(
+              listaDeProdutos[9].valor
+            );
+          } else if (i >= 10) {
+            window.alert("Limite de itens atingindo!");
+            return;
           }
-
-          document.getElementById("valorTotal").innerText = valorTotal;
+          document.getElementById("valorTotal").innerText = formatarMoeda(valorTotal);
           createTroco();
-          limparCampos()
+          limparCampos();
           return;
         }
 
-        console.log("Tipo de Serviço inválido");
+        window.alert("Preencha todos os dados sobre o produto!");
         listaDeProdutos[i] = undefined;
         return;
       }
     }
   }
 
-  function limparCampos()
-  {
-    document.getElementById('name').value="";
-    document.getElementById('qt').value="";
-    document.getElementById('valor').value="";
-    document.getElementById('tipo-de-servico').value="";
+  function limparCampos() {
+    document.getElementById("name").value = "";
+    document.getElementById("qt").value = "";
+    document.getElementById("valor").value = "";
+    document.getElementById("tipo-de-servico").value = "";
   }
 
   function createTroco() {
     let troco;
     troco = inputValorPago.current.value - valorTotal;
-    if (inputFormaDePagamento.current.value === "dinheiro") {
+    if (inputFormaDePagamento.current.value === "Dinheiro") {
       if (troco >= 0) {
-        document.getElementById("troco").innerText = troco;
+        document.getElementById("troco").innerText = formatarMoeda(troco);
       } else {
-        document.getElementById("troco").innerText = 0;
+        document.getElementById("troco").innerText = formatarMoeda(0);
       }
     } else {
       document.getElementById("troco").innerText = "Sem troco";
@@ -249,7 +279,7 @@ function App() {
     venda.tipoDePagamento = inputFormaDePagamento.current.value;
     venda.valorPago = parseFloat(inputValorPago.current.value);
 
-    if (inputFormaDePagamento.current.value === "dinheiro") {
+    if (inputFormaDePagamento.current.value === "Dinheiro") {
       if (inputValorPago.current.value - valorTotal >= 0) {
         venda.troco = (inputValorPago.current.value - valorTotal).toString();
       } else {
@@ -261,14 +291,20 @@ function App() {
 
     if (
       venda.tipoDePagamento === "" ||
-      venda.valorPago < venda.valorTotal ||
-      venda.valorTotal <= 0
+      (venda.valorPago < venda.valorTotal &&
+        venda.tipoDePagamento != "Pendente") ||
+      venda.valorTotal <= 0 ||
+      isNaN(venda.valorPago)
     ) {
-      console.log("Invalido");
+      window.alert("Preencha todos os campos de forma válida!");
       return;
     }
 
-    createVendas();
+    if (window.confirm("Confirmar venda?")) {
+      createVendas();
+      return;
+    }
+
     return;
   }
 
@@ -284,7 +320,7 @@ function App() {
           <input name="valor" id="valor" type="number" ref={inputValor} />
           <text>Tipo de Produto:</text>
           <select
-            class="value-tipo"
+            className="value-tipo"
             id="tipo-de-servico"
             name="tipo"
             required="required"
@@ -441,12 +477,12 @@ function App() {
         <form className="venda">
           <h1>Valor Total:</h1>
           <text className="valorPago" id="valorTotal">
-            00,00
+            R$0,00
           </text>
 
           <h1>Tipo de pagamento:</h1>
           <select
-            class="value-tipo"
+            className="value-tipo"
             id="forma-de-pagamento"
             name="forma"
             required="required"
@@ -454,11 +490,11 @@ function App() {
             onChange={createTroco}
           >
             <option value="">Escolha a forma de Pagamento</option>
-            <option value="dinheiro">Dinheiro</option>
-            <option value="pix">Pix</option>
-            <option value="cardCredit">Cartão de Crédito</option>
-            <option value="cardDebito">Cartão de Débito</option>
-            <option value="pendente">Pendente</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Pix">Pix</option>
+            <option value="Cartão de Crédito">Cartão de Crédito</option>
+            <option value="Cartão de Débito">Cartão de Débito</option>
+            <option value="Pendente">Pendente</option>
           </select>
 
           <h1>Valor Pago:</h1>
@@ -471,7 +507,7 @@ function App() {
 
           <h1>Troco:</h1>
           <text className="troco" id="troco">
-            00,00
+            R$0,00
           </text>
 
           <button
@@ -484,26 +520,117 @@ function App() {
         </form>
       </div>
 
-      {vendas.map((vendas) => (
-        <div key={vendas.id} className="get">
-          <p>Produtos: {vendas.produto}</p>
-          <p>Quantidades: {vendas.quantidade}</p>
-          <p>Valores: {vendas.valor}</p>
-          <p>Tipos: {vendas.tipo}</p>
-          <p>Valor Total: {vendas.valorTotal}</p>
-          <p>Tipo de Pagamento: {vendas.tipoDePagamento}</p>
-          <p>Valor de Pagamento: {vendas.valorPago}</p>
-          <p>Troco: {vendas.troco}</p>
+      <h2>HISTÓRICO DE VENDAS</h2>
+      <div className="container-get">
+        {vendas.map((vendas, i) => (
+          <div key={vendas.id} className="get">
+            <div className="titulo-venda">
+              <h1>Venda: {i + 1}</h1>
+            </div>
+            <div className="his-table">
+              <p className="his-titulo">Quantidade:</p>
+              <div className="his-valores">
+                <p>{vendas.quantidade[0]}</p>
+                <p>{vendas.quantidade[1]}</p>
+                <p>{vendas.quantidade[2]}</p>
+                <p>{vendas.quantidade[3]}</p>
+                <p>{vendas.quantidade[4]}</p>
+                <p>{vendas.quantidade[5]}</p>
+                <p>{vendas.quantidade[6]}</p>
+                <p>{vendas.quantidade[7]}</p>
+                <p>{vendas.quantidade[8]}</p>
+                <p>{vendas.quantidade[9]}</p>
+              </div>
+            </div>
 
-          <button
+            <div className="his-table-produtos">
+              <p className="his-titulo">Produto:</p>
+              <div className="his-valores">
+                <p>{vendas.produto[0]}</p>
+                <p>{vendas.produto[1]}</p>
+                <p>{vendas.produto[2]}</p>
+                <p>{vendas.produto[3]}</p>
+                <p>{vendas.produto[4]}</p>
+                <p>{vendas.produto[5]}</p>
+                <p>{vendas.produto[6]}</p>
+                <p>{vendas.produto[7]}</p>
+                <p>{vendas.produto[8]}</p>
+                <p>{vendas.produto[9]}</p>
+              </div>
+            </div>
+
+            <div className="his-table">
+              <p className="his-titulo">Valor:</p>
+              <div className="his-valores">
+                <p>{formatarMoeda(vendas.valor[0])}</p>
+                <p>{formatarMoeda(vendas.valor[1])}</p>
+                <p>{formatarMoeda(vendas.valor[2])}</p>
+                <p>{formatarMoeda(vendas.valor[3])}</p>
+                <p>{formatarMoeda(vendas.valor[4])}</p>
+                <p>{formatarMoeda(vendas.valor[5])}</p>
+                <p>{formatarMoeda(vendas.valor[6])}</p>
+                <p>{formatarMoeda(vendas.valor[7])}</p>
+                <p>{formatarMoeda(vendas.valor[8])}</p>
+                <p>{formatarMoeda(vendas.valor[9])}</p>
+              </div>
+            </div>
+
+            <div className="his-table">
+              <p className="his-titulo">Tipo:</p>
+              <div className="his-valores">
+                <p>{vendas.tipo[0]}</p>
+                <p>{vendas.tipo[1]}</p>
+                <p>{vendas.tipo[2]}</p>
+                <p>{vendas.tipo[3]}</p>
+                <p>{vendas.tipo[4]}</p>
+                <p>{vendas.tipo[5]}</p>
+                <p>{vendas.tipo[6]}</p>
+                <p>{vendas.tipo[7]}</p>
+                <p>{vendas.tipo[8]}</p>
+                <p>{vendas.tipo[9]}</p>
+              </div>
+            </div>
+
+            <div className="his-totais">
+              <div>
+                <p className="his-titulo-totais">Valor Total: </p>
+                <p className="his-valor-totais">
+                  {formatarMoeda(vendas.valorTotal)}
+                </p>
+              </div>
+
+              <div>
+                <p className="his-titulo-totais">Tipo de Pagamento:</p>
+                <p className="his-valor-totais-tipo">
+                  {vendas.tipoDePagamento}
+                </p>
+              </div>
+
+              <div>
+                <p className="his-titulo-totais">Valor de Pagamento:</p>
+                <p className="his-valor-totais">
+                  {formatarMoeda(vendas.valorPago)}
+                </p>
+              </div>
+
+              <div>
+                <p className="his-titulo-totais">Troco:</p>
+                <p className="his-valor-totais-troco">
+                  {formatarMoeda(vendas.troco)}
+                </p>
+              </div>
+            </div>
+
+            <button
               className="button-trash-vendas"
               type="button"
               onClick={() => deleteVendas(vendas.id)}
             >
               <img src={Trash} />
             </button>
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

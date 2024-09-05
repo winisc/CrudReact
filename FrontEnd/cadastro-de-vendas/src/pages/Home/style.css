@@ -1,7 +1,7 @@
 .container{
   display: flex;
   align-items:  center;
-  padding-top: 100px;
+  padding-top: 30px;
   justify-content: center;
 }
 
@@ -9,6 +9,14 @@ h1{
   color: white;
   font-size: 28px;
   text-align: center;
+}
+
+h2{
+  color: white;
+  font-size: 28px;
+  text-align: center;
+  padding-top: 80px;
+  margin: -30px;
 }
 
 text{
@@ -122,48 +130,19 @@ form{
   }
 }
 
-.card{
-  display: flex;
-  justify-content: space-between;
-  background-color: #2E2D4E;
-  margin: 10px;
-  padding: 10px;
-  width: 400px;
-  border-radius: 10px;
-
-  & p{
-    color: #FFF;
-    font-weight: bold ;
-
-    & span{
-      font-weight: normal;
-    }
-  }
-
-  & button{
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-  }
-
-  & button:hover{
-    opacity: 0.5;
-  }
-}
-
 .venda > h1{
   font-size: 25px;
   margin: -15px;
 }
 
 .valorPago{
-  font-size: 55px;
+  font-size: 50px;
   margin-bottom: 0px;
   color: #78df6e;
 }
 
 .troco{
-  font-size: 40px;
+  font-size: 30px;
   color: #dd606f;
 }
 
@@ -184,12 +163,103 @@ form{
 
 .button-trash-vendas{
   cursor: pointer;
+  height: 35px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.container-get{
+  display: flex;
+  flex-direction: column;
+  align-items:  center;
+  padding-top: 30px;
+  justify-content: center;
 }
 
 .get{
   display: flex;
+  gap: 30px;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #2E2D4E;
+  max-width: 80%;
+  margin: 20px;
+}
+
+.his-table{
+  display: flex;
+  flex-direction: column;
+}
+
+.his-table-produtos{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.his-titulo{
+  font-size: 20px;
+  padding: 5px;
+  margin: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.his-titulo-totais{
+  font-size: 20px;
+  padding: 5px;
+  margin: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.his-valores{
+  display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 100px;
-  gap: 30px;
+  text-align: center;
+  padding-top: 15px;
+  gap: 40px;
+}
+
+.his-totais{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 20px;
+  min-width: 300px;
+  min-height: 260px;
+  border-radius: 10px;
+  background-color: #201e256d;
+  margin-top: 20px;
+}
+
+.his-valor-totais{
+  color: #63dc5d;
+  font-size: 20px;
+  padding-top: 5px;
+}
+
+.his-valor-totais-troco{
+  color: #dc6a5d;
+  font-size: 20px;
+  padding-top: 5px;
+}
+
+.his-valor-totais-tipo{
+  color: #bfc442;
+  font-size: 20px;
+  padding-top: 5px;
+}
+
+.titulo-venda{
+  display: flex;
+  align-items: center;
+  background-color:#48456C;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.titulo-venda>h1{
+  font-size: 12px;
 }
