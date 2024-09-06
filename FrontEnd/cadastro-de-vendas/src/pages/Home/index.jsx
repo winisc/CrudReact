@@ -11,7 +11,6 @@ import Edit from "../../assets/edit.svg";
 import api from "../../services/api";
 
 function App() {
-
   function formatarMoeda(amount) {
     if (amount === "Sem troco") {
       return amount;
@@ -29,6 +28,12 @@ function App() {
 
   function dataAgora() {
     return new Intl.DateTimeFormat("pt-BR").format(date);
+  }
+
+  function adicionarZeroAEsquerda(numero) {
+    if(numero != null) {
+      return numero.toString().padStart(2, "0");
+    }
   }
 
   const inputProduto = useRef();
@@ -104,7 +109,7 @@ function App() {
     const valorElement = document.getElementById(`valor-lista${index}`);
     const listaElement = document.getElementById(`lista-de-produtos${index}`);
 
-    quantidadeElement.innerText = produto.quantidade;
+    quantidadeElement.innerText = adicionarZeroAEsquerda(produto.quantidade);
     produtoElement.innerText = produto.name;
     valorElement.innerText = formatarMoeda(produto.valor);
     listaElement.style.display = "flex";
@@ -211,11 +216,11 @@ function App() {
     window.alert("Produto não encontrado!");
   }
 
-  function atualizarVendaProduto(index, produto) {
-    venda.produto[index] = produto.name;
-    venda.quantidade[index] = parseInt(produto.quantidade);
-    venda.valor[index] = parseFloat(produto.valor);
-    venda.tipo[index] = produto.servico;
+  function atualizarVendaProduto(index, listaDeProduto) {
+    venda.produto[index] = listaDeProduto.name;
+    venda.quantidade[index] = parseInt(listaDeProduto.quantidade);
+    venda.valor[index] = parseFloat(listaDeProduto.valor);
+    venda.tipo[index] = listaDeProduto.servico;
   }
 
   function calcularTroco(valorPago, valorTotal) {
@@ -224,9 +229,9 @@ function App() {
 
   function confirmarVenda() {
     // Atualizar informações dos produtos
-    listaDeProdutos.forEach((produto, index) => {
-      if (produto !== undefined) {
-        atualizarVendaProduto(index, produto);
+    listaDeProdutos.forEach((listaDeProduto, index) => {
+      if (listaDeProduto !== undefined) {
+        atualizarVendaProduto(index, listaDeProduto);
       }
     });
 
@@ -273,11 +278,29 @@ function App() {
       <div className="container">
         <form>
           <text>Produto:</text>
-          <input name="name" id="name" type="text" ref={inputProduto} />
+          <input
+            name="name"
+            id="name"
+            type="text"
+            placeholder="Nome do Produto"
+            ref={inputProduto}
+          />
           <text>Quantidade:</text>
-          <input name="qt" id="qt" type="number" ref={inputQuantidade} />
+          <input
+            name="qt"
+            id="qt"
+            type="number"
+            placeholder="00"
+            ref={inputQuantidade}
+          />
           <text>Valor:</text>
-          <input name="valor" id="valor" type="number" ref={inputValor} />
+          <input
+            name="valor"
+            id="valor"
+            type="number"
+            placeholder="0,00"
+            ref={inputValor}
+          />
           <text>Tipo de Produto:</text>
           <select
             className="value-tipo"
@@ -458,12 +481,18 @@ function App() {
           </select>
 
           <h1>Cliente:</h1>
-          <input name="" type="text" ref={inputCliente} />
+          <input
+            name=""
+            type="text"
+            placeholder="Nome do Cliente"
+            ref={inputCliente}
+          />
 
           <h1>Valor Pago:</h1>
           <input
             name=""
             type="number"
+            placeholder="0,00"
             ref={inputValorPago}
             onChange={createTroco}
           />
@@ -497,16 +526,16 @@ function App() {
               <div className="his-table">
                 <p className="his-titulo">Quantidade:</p>
                 <div className="his-valores">
-                  <p>{vendas.quantidade[0]}</p>
-                  <p>{vendas.quantidade[1]}</p>
-                  <p>{vendas.quantidade[2]}</p>
-                  <p>{vendas.quantidade[3]}</p>
-                  <p>{vendas.quantidade[4]}</p>
-                  <p>{vendas.quantidade[5]}</p>
-                  <p>{vendas.quantidade[6]}</p>
-                  <p>{vendas.quantidade[7]}</p>
-                  <p>{vendas.quantidade[8]}</p>
-                  <p>{vendas.quantidade[9]}</p>
+                  <p>{adicionarZeroAEsquerda(vendas.quantidade[0])}</p>
+                  <p>{adicionarZeroAEsquerda(vendas.quantidade[1])}</p>
+                  <p>{adicionarZeroAEsquerda(vendas.quantidade[2])}</p>
+                  <p>{adicionarZeroAEsquerda(vendas.quantidade[3])}</p>
+                  <p>{adicionarZeroAEsquerda(vendas.quantidade[4])}</p>
+                  <p>{adicionarZeroAEsquerda(vendas.quantidade[5])}</p>
+                  <p>{adicionarZeroAEsquerda(vendas.quantidade[6])}</p>
+                  <p>{adicionarZeroAEsquerda(vendas.quantidade[7])}</p>
+                  <p>{adicionarZeroAEsquerda(vendas.quantidade[8])}</p>
+                  <p>{adicionarZeroAEsquerda(vendas.quantidade[9])}</p>
                 </div>
               </div>
 
