@@ -11,6 +11,7 @@ import Edit from "../../assets/edit.svg";
 import api from "../../services/api";
 
 function App() {
+
   function formatarMoeda(amount) {
     if (amount === "Sem troco") {
       return amount;
@@ -95,145 +96,6 @@ function App() {
     getVendas();
   }, []);
 
-  // function createProdutoTemp() {
-  //   const produto = {
-  //     name: inputProduto.current.value,
-  //     quantidade: inputQuantidade.current.value,
-  //     valor: inputValor.current.value,
-  //     servico: inputServico.current.value,
-  //   };
-
-  //   for (let i = 0; i < 11; i++) {
-  //     if (listaDeProdutos[i] === undefined) {
-  //       listaDeProdutos[i] = produto;
-  //       if (
-  //         listaDeProdutos[i].name != "" &&
-  //         listaDeProdutos[i].servico != "" &&
-  //         !isNaN(listaDeProdutos[i].valor) &&
-  //         !isNaN(listaDeProdutos[i].quantidade)
-  //       ) {
-  //         if (i === 0) {
-  //           document.getElementById("quantidade-lista0").innerText =
-  //             listaDeProdutos[0].quantidade;
-  //           document.getElementById("produto-lista0").innerText =
-  //             listaDeProdutos[0].name;
-  //           document.getElementById("valor-lista0").innerText = formatarMoeda(
-  //             listaDeProdutos[0].valor
-  //           );
-  //           document.getElementById("lista-de-produtos0").style.display =
-  //             "flex";
-  //         } else if (i === 1) {
-  //           document.getElementById("quantidade-lista1").innerText =
-  //             listaDeProdutos[1].quantidade;
-  //           document.getElementById("produto-lista1").innerText =
-  //             listaDeProdutos[1].name;
-  //           document.getElementById("valor-lista1").innerText = formatarMoeda(
-  //             listaDeProdutos[1].valor
-  //           );
-  //           document.getElementById("lista-de-produtos1").style.display =
-  //             "flex";
-  //         } else if (i === 2) {
-  //           document.getElementById("quantidade-lista2").innerText =
-  //             listaDeProdutos[2].quantidade;
-  //           document.getElementById("produto-lista2").innerText =
-  //             listaDeProdutos[2].name;
-  //           document.getElementById("valor-lista2").innerText = formatarMoeda(
-  //             listaDeProdutos[2].valor
-  //           );
-  //           document.getElementById("lista-de-produtos2").style.display =
-  //             "flex";
-  //         } else if (i === 3) {
-  //           document.getElementById("quantidade-lista3").innerText =
-  //             listaDeProdutos[3].quantidade;
-  //           document.getElementById("produto-lista3").innerText =
-  //             listaDeProdutos[3].name;
-  //           document.getElementById("valor-lista3").innerText = formatarMoeda(
-  //             listaDeProdutos[3].valor
-  //           );
-  //           document.getElementById("lista-de-produtos3").style.display =
-  //             "flex";
-  //         } else if (i === 4) {
-  //           document.getElementById("quantidade-lista4").innerText =
-  //             listaDeProdutos[4].quantidade;
-  //           document.getElementById("produto-lista4").innerText =
-  //             listaDeProdutos[4].name;
-  //           document.getElementById("valor-lista4").innerText = formatarMoeda(
-  //             listaDeProdutos[4].valor
-  //           );
-  //           document.getElementById("lista-de-produtos4").style.display =
-  //             "flex";
-  //         } else if (i === 5) {
-  //           document.getElementById("quantidade-lista5").innerText =
-  //             listaDeProdutos[5].quantidade;
-  //           document.getElementById("produto-lista5").innerText =
-  //             listaDeProdutos[5].name;
-  //           document.getElementById("valor-lista5").innerText = formatarMoeda(
-  //             listaDeProdutos[5].valor
-  //           );
-  //           document.getElementById("lista-de-produtos5").style.display =
-  //             "flex";
-  //         } else if (i === 6) {
-  //           document.getElementById("quantidade-lista6").innerText =
-  //             listaDeProdutos[6].quantidade;
-  //           document.getElementById("produto-lista6").innerText =
-  //             listaDeProdutos[6].name;
-  //           document.getElementById("valor-lista6").innerText = formatarMoeda(
-  //             listaDeProdutos[6].valor
-  //           );
-  //           document.getElementById("lista-de-produtos6").style.display =
-  //             "flex";
-  //         } else if (i === 7) {
-  //           document.getElementById("quantidade-lista7").innerText =
-  //             listaDeProdutos[7].quantidade;
-  //           document.getElementById("produto-lista7").innerText =
-  //             listaDeProdutos[7].name;
-  //           document.getElementById("valor-lista7").innerText = formatarMoeda(
-  //             listaDeProdutos[7].valor
-  //           );
-  //           document.getElementById("lista-de-produtos7").style.display =
-  //             "flex";
-  //         } else if (i === 8) {
-  //           document.getElementById("quantidade-lista8").innerText =
-  //             listaDeProdutos[8].quantidade;
-  //           document.getElementById("produto-lista8").innerText =
-  //             listaDeProdutos[8].name;
-  //           document.getElementById("valor-lista8").innerText = formatarMoeda(
-  //             listaDeProdutos[8].valor
-  //           );
-  //           document.getElementById("lista-de-produtos8").style.display =
-  //             "flex";
-  //         } else if (i === 9) {
-  //           document.getElementById("quantidade-lista9").innerText =
-  //             listaDeProdutos[9].quantidade;
-  //           document.getElementById("produto-lista9").innerText =
-  //             listaDeProdutos[9].name;
-  //           document.getElementById("valor-lista9").innerText = formatarMoeda(
-  //             listaDeProdutos[9].valor
-  //           );
-  //           document.getElementById("lista-de-produtos9").style.display =
-  //             "flex";
-  //         } else if (i >= 10) {
-  //           console.log(listaDeProdutos[10]);
-  //           listaDeProdutos[10] = undefined;
-  //           console.log(listaDeProdutos[10]);
-  //           return window.alert("Limite de itens atingindo!");
-  //         }
-  //         valorTotal += parseFloat(listaDeProdutos[i].valor);
-
-  //         document.getElementById("valorTotal").innerText =
-  //           formatarMoeda(valorTotal);
-  //         createTroco();
-  //         limparCampos();
-  //         return;
-  //       }
-
-  //       window.alert("Preencha todos os campos sobre o produto!");
-  //       listaDeProdutos[i] = undefined;
-  //       return;
-  //     }
-  //   }
-  // }
-
   function updateProductDisplay(index, produto) {
     const quantidadeElement = document.getElementById(
       `quantidade-lista${index}`
@@ -259,12 +121,12 @@ function App() {
     for (let i = 0; i < 11; i++) {
       if (listaDeProdutos[i] === undefined) {
         listaDeProdutos[i] = produto;
-
+        console.log(listaDeProdutos[i].valor);
         if (
-          produto.name !== "" &&
-          produto.servico !== "" &&
-          !isNaN(produto.valor) &&
-          !isNaN(produto.quantidade)
+          listaDeProdutos[i].name != "" &&
+          listaDeProdutos[i].servico != "" &&
+          listaDeProdutos[i].valor != 0 &&
+          listaDeProdutos[i].quantidade != 0
         ) {
           if (i >= 10) {
             console.log(listaDeProdutos[10]);
@@ -274,8 +136,8 @@ function App() {
             return;
           }
 
-          updateProductDisplay(i, produto);
-          valorTotal += parseFloat(produto.valor);
+          updateProductDisplay(i, listaDeProdutos[i]);
+          valorTotal += parseFloat(listaDeProdutos[i].valor);
 
           document.getElementById("valorTotal").innerText =
             formatarMoeda(valorTotal);
@@ -290,7 +152,7 @@ function App() {
       }
     }
   }
-  
+
   function limparCampos() {
     document.getElementById("name").value = "";
     document.getElementById("qt").value = "";
@@ -314,90 +176,70 @@ function App() {
     }
   }
 
-  function deleteProdutoTemp(id) {
-    if (listaDeProdutos[id] != undefined) {
-      valorTotal = valorTotal - parseInt(listaDeProdutos[id].valor);
+  function limparProdutoDisplay(id) {
+    const quantidadeElement = document.getElementById(`quantidade-lista${id}`);
+    const produtoElement = document.getElementById(`produto-lista${id}`);
+    const valorElement = document.getElementById(`valor-lista${id}`);
+    const listaElement = document.getElementById(`lista-de-produtos${id}`);
 
-      listaDeProdutos[id] = undefined;
-
-      for (let i = 0; i < 10; i++) {
-        if (id === 0) {
-          document.getElementById("quantidade-lista0").innerText = "";
-          document.getElementById("produto-lista0").innerText = "";
-          document.getElementById("valor-lista0").innerText = "";
-          document.getElementById("lista-de-produtos0").style.display = "none";
-        } else if (id === 1) {
-          document.getElementById("quantidade-lista1").innerText = "";
-          document.getElementById("produto-lista1").innerText = "";
-          document.getElementById("valor-lista1").innerText = "";
-          document.getElementById("lista-de-produtos1").style.display = "none";
-        } else if (id === 2) {
-          document.getElementById("quantidade-lista2").innerText = "";
-          document.getElementById("produto-lista2").innerText = "";
-          document.getElementById("valor-lista2").innerText = "";
-          document.getElementById("lista-de-produtos2").style.display = "none";
-        } else if (id === 3) {
-          document.getElementById("quantidade-lista3").innerText = "";
-          document.getElementById("produto-lista3").innerText = "";
-          document.getElementById("valor-lista3").innerText = "";
-          document.getElementById("lista-de-produtos3").style.display = "none";
-        } else if (id === 4) {
-          document.getElementById("quantidade-lista4").innerText = "";
-          document.getElementById("produto-lista4").innerText = "";
-          document.getElementById("valor-lista4").innerText = "";
-          document.getElementById("lista-de-produtos4").style.display = "none";
-        } else if (id === 5) {
-          document.getElementById("quantidade-lista5").innerText = "";
-          document.getElementById("produto-lista5").innerText = "";
-          document.getElementById("valor-lista5").innerText = "";
-          document.getElementById("lista-de-produtos5").style.display = "none";
-        } else if (id === 6) {
-          document.getElementById("quantidade-lista6").innerText = "";
-          document.getElementById("produto-lista6").innerText = "";
-          document.getElementById("valor-lista6").innerText = "";
-          document.getElementById("lista-de-produtos6").style.display = "none";
-        } else if (id === 7) {
-          document.getElementById("quantidade-lista7").innerText = "";
-          document.getElementById("produto-lista7").innerText = "";
-          document.getElementById("valor-lista7").innerText = "";
-          document.getElementById("lista-de-produtos7").style.display = "none";
-        } else if (id === 8) {
-          document.getElementById("quantidade-lista8").innerText = "";
-          document.getElementById("produto-lista8").innerText = "";
-          document.getElementById("valor-lista8").innerText = "";
-          document.getElementById("lista-de-produtos8").style.display = "none";
-        } else if (id === 9) {
-          document.getElementById("quantidade-lista9").innerText = "";
-          document.getElementById("produto-lista9").innerText = "";
-          document.getElementById("valor-lista9").innerText = "";
-          document.getElementById("lista-de-produtos9").style.display = "none";
-        }
-      }
-
-      document.getElementById("valorTotal").innerText = valorTotal;
-      createTroco();
-      return;
+    if (quantidadeElement && produtoElement && valorElement && listaElement) {
+      quantidadeElement.innerText = "";
+      produtoElement.innerText = "";
+      valorElement.innerText = "";
+      listaElement.style.display = "none";
     }
   }
 
-  function confirmarVenda() {
-    for (let i = 0; i < 10; i++) {
-      if (listaDeProdutos[i] != undefined) {
-        venda.produto[i] = listaDeProdutos[i].name;
-        venda.quantidade[i] = parseInt(listaDeProdutos[i].quantidade);
-        venda.valor[i] = parseFloat(listaDeProdutos[i].valor);
-        venda.tipo[i] = listaDeProdutos[i].servico;
-      }
+  function deleteProdutoTemp(id) {
+    if (listaDeProdutos[id] !== undefined) {
+      valorTotal -= parseFloat(listaDeProdutos[id].valor);
+
+      // Limpar o produto da lista
+      listaDeProdutos[id] = undefined;
+
+      // Atualizar a exibição do produto
+      limparProdutoDisplay(id);
+
+      // Atualizar o valor total
+      document.getElementById("valorTotal").innerText =
+        formatarMoeda(valorTotal);
+      createTroco();
+
+      return;
     }
 
+    window.alert("Produto não encontrado!");
+  }
+
+  function atualizarVendaProduto(index, produto) {
+    venda.produto[index] = produto.name;
+    venda.quantidade[index] = parseInt(produto.quantidade);
+    venda.valor[index] = parseFloat(produto.valor);
+    venda.tipo[index] = produto.servico;
+  }
+
+  function calcularTroco(valorPago, valorTotal) {
+    return (valorPago - valorTotal).toFixed(2);
+  }
+
+  function confirmarVenda() {
+    // Atualizar informações dos produtos
+    listaDeProdutos.forEach((produto, index) => {
+      if (produto !== undefined) {
+        atualizarVendaProduto(index, produto);
+      }
+    });
+
+    // Atualizar informações da venda
     venda.valorTotal = parseFloat(valorTotal);
     venda.tipoDePagamento = inputFormaDePagamento.current.value;
     venda.valorPago = parseFloat(inputValorPago.current.value);
     venda.cliente = inputCliente.current.value;
 
-    if (inputFormaDePagamento.current.value === "Dinheiro") {
-      if (inputValorPago.current.value - valorTotal >= 0) {
-        venda.troco = (inputValorPago.current.value - valorTotal).toString();
+    // Calcular troco
+    if (venda.tipoDePagamento === "Dinheiro") {
+      if (venda.valorPago >= venda.valorTotal) {
+        venda.troco = calcularTroco(venda.valorPago, venda.valorTotal);
       } else {
         venda.troco = "0";
       }
@@ -405,25 +247,25 @@ function App() {
       venda.troco = "Sem troco";
     }
 
-    if (
-      venda.cliente === "" ||
-      venda.tipoDePagamento === "" ||
-      (venda.valorPago < venda.valorTotal &&
-        venda.tipoDePagamento != "Pendente") ||
-      venda.valorTotal <= 0 ||
-      isNaN(venda.valorPago)
-    ) {
+    // Verificar se todos os campos estão preenchidos corretamente
+    const validaCampos =
+      (venda.cliente !== "" &&
+        venda.tipoDePagamento !== "" &&
+        venda.valorPago >= venda.valorTotal) ||
+      (venda.tipoDePagamento === "Pendente" &&
+        venda.valorTotal > 0 &&
+        !isNaN(venda.valorPago));
+
+    if (!validaCampos) {
       window.alert("Preencha todos os campos de forma válida!");
       return;
     }
 
+    // Confirmar venda
     if (window.confirm("Confirmar venda?")) {
       venda.data = dataAgora();
       createVendas();
-      return;
     }
-
-    return;
   }
 
   return (
